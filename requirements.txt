@@ -133,7 +133,7 @@ rauth==0.7.3
 redis==2.10.5
 regex==2018.2.8
 reportlab==3.5.13
-requests==2.18.4
+requests==2.20.0
 requests-oauthlib==1.2.0
 rsa==3.4.2
 s3transfer==0.1.11
