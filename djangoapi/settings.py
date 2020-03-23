@@ -39,8 +39,17 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'import_export',
     'rest_framework',
-    'library'
+    'rest_framework.authtoken',
+    'library',
+    'users'
 ]
+
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': [
+        'rest_framework.authentication.BasicAuthentication',
+        'rest_framework.authentication.SessionAuthentication',
+    ]
+}
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -127,4 +136,16 @@ USE_TZ = True
 STATIC_URL = '/static/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media/')
 MEDIA_URL = '/media/'
+
+
+ADMIN_COLORS_BASE_THEME = 'Dark Blue'
+# These are the "builtin" django-admin-colors themes
+ADMIN_COLORS = [
+    ('Default', []),
+    ('Lite', 'admincolors/css/lite.css'),
+    ('Dark Blue', 'admincolors/css/dark-blue.css'),
+    ('Gray', 'admincolors/css/gray.css')
+]
+
+ADMIN_NAME = 'Library Administrator'
 
