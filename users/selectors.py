@@ -9,3 +9,9 @@ class UserSelector:
         profile = Profile.objects.get(user=user)
 
         return profile
+
+    @staticmethod
+    def get_role_by_name(role_name: 'str') -> 'Role':
+        role = Role.objects.get(role_name=role_name)
+
+        return role

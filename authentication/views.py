@@ -7,10 +7,12 @@ from rest_framework.authtoken.models import Token
 from django.contrib.auth.tokens import default_token_generator
 
 from .serializers import AuthenticationTokenSerializer, SignUpSerializer, serializers
+# from users.serializers import UsersSerializer
 
 from users.models import Profile
 
 from users.selectors import UserSelector
+from users.services import UserServices
 from users.serializers import ProfileSerializer
 
 
@@ -32,19 +34,25 @@ class LoginView(GenericAPIView):
 
         return Response(data)
 
+
 class SignUpView(GenericAPIView):
 
     def post(self, request):
         # This endpoint creates anew company and sends a confirmation email
 
-        auth_utils = AuthenticationUtils()
-        serializer = self.get_serializer(data=request.data, context={'request': request})
-        serializer.is_valid(raise_exception=True)
-        user = auth_utils.create_user(serializer.validated_data)
+        user_services = UserServices()
+        serializer_user = serializers.SignUpSerializer(data=request.data)
+        serializer_user.is_valid(raise_exception=True)
+        user = user_services.create_user(serializer_user.validated_data)
+
         Token.objects.get_or_create(user=user)
-        profile = auth_utils.create_profile(user, serializer.validated_data, False)
-        auth_utils.create_permissions(profile)
-        auth_utils.create_notifications(profile)
 
+        users_selector = UserSelector()
 
-        return Response({'user': profile_data})
+        role = users_selector('client')
+
+        profile = user_services.create_profile(user, serializer_user.validated_data, role)
+
+        profile_serializer = ProfileSerializer(profile)
+
+        return Response({'user': profile_serializer.data})
