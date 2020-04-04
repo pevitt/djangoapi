@@ -11,7 +11,9 @@ class AuthenticationTokenSerializer(serializers.Serializer):
     password = serializers.CharField(style={'input_type': 'password'})
 
     def validate(self, data):
-        email = data.get('email').lower()
+        print("validate")
+        print(data)
+        email = data.get('username').lower()
         password = data.get('password')
         backend = AuthenticationValidateBackend()
 

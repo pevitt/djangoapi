@@ -26,8 +26,9 @@ class RoleSerializers(serializers.ModelSerializer):
 
 
 class ProfileSerializer(serializers.ModelSerializer):
-    user = UsersSerializer()
+    user = UsersSerializer(required=True)
+    role = RoleSerializers(required=True)
 
     class Meta:
-        model: Profile
+        model = Profile
         fields = '__all__'

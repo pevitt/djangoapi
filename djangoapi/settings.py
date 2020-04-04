@@ -41,7 +41,8 @@ INSTALLED_APPS = [
     'rest_framework',
     'rest_framework.authtoken',
     'library',
-    'users'
+    'users',
+    'authentication'
 ]
 
 REST_FRAMEWORK = {

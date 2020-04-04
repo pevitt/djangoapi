@@ -20,7 +20,8 @@ from users.serializers import ProfileSerializer
 class LoginView(GenericAPIView):
 
     def post(self, request, *args, **kwargs):
-        user_serializer = serializers.AuthenticationTokenSerializer(data=request.data)
+        print(request.data)
+        user_serializer = AuthenticationTokenSerializer(data=request.data)
         user_serializer.is_valid(raise_exception=True)
         user = user_serializer.validated_data['user']
 
@@ -28,6 +29,7 @@ class LoginView(GenericAPIView):
 
         user_selector = UserSelector()
         profile = user_selector.get_profile_by_user(user)
+
         profile_data = ProfileSerializer(profile).data
 
         data = {'token': user.auth_token.key, 'profile': profile_data}
@@ -41,7 +43,7 @@ class SignUpView(GenericAPIView):
         # This endpoint creates anew company and sends a confirmation email
 
         user_services = UserServices()
-        serializer_user = serializers.SignUpSerializer(data=request.data)
+        serializer_user = SignUpSerializer(data=request.data)
         serializer_user.is_valid(raise_exception=True)
         user = user_services.create_user(serializer_user.validated_data)
 
@@ -55,4 +57,6 @@ class SignUpView(GenericAPIView):
 
         profile_serializer = ProfileSerializer(profile)
 
-        return Response({'user': profile_serializer.data})
+        data = {'token': user.auth_token.key, 'profile': profile_serializer.data}
+
+        return Response(data)
