@@ -20,7 +20,6 @@ from users.serializers import ProfileSerializer
 class LoginView(GenericAPIView):
 
     def post(self, request, *args, **kwargs):
-        print(request.data)
         user_serializer = AuthenticationTokenSerializer(data=request.data)
         user_serializer.is_valid(raise_exception=True)
         user = user_serializer.validated_data['user']
@@ -51,9 +50,9 @@ class SignUpView(GenericAPIView):
 
         users_selector = UserSelector()
 
-        role = users_selector('client')
+        role = users_selector.get_role_by_name('Cliente')
 
-        profile = user_services.create_profile(user, serializer_user.validated_data, role)
+        profile = user_services.create_profile(user, role)
 
         profile_serializer = ProfileSerializer(profile)
 

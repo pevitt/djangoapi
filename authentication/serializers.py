@@ -49,7 +49,11 @@ class SignUpSerializer(serializers.Serializer):
     def validate(self, data):
         first_name = data['first_name']
         last_name = data['last_name']
-        username = '%s.%s' % (first_name.lower(), last_name.lower())
+
+        first_split = first_name.split(' ')
+        last_split = last_name.split(' ')
+
+        username = '%s.%s' % (first_split[0].lower(), last_split[0].lower())
         username = '{:.29}'.format(username)
         counter = User.objects.filter(first_name=first_name, last_name=last_name).count()
         if counter > 0:
