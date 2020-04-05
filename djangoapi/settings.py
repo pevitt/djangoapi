@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'import_export',
     'rest_framework',
     'rest_framework.authtoken',
+    'django_celery_beat',
     'library',
     'users',
     'authentication'
@@ -149,4 +150,15 @@ ADMIN_COLORS = [
 ]
 
 ADMIN_NAME = 'Library Administrator'
+
+
+# CELERY SETTINGS
+BROKER_URL = os.environ.get('BROKER_URL', 'redis://localhost:6379/0')
+CELERY_RESULT_BACKEND = os.environ.get('CELERY_RESULT_BACKEND', 'redis://localhost/0')
+CELERY_ACCEPT_CONTENT = ['json']
+CELERY_TASK_SERIALIZER = 'json'
+BOUNCY_TOPIC_ARN = 'arn:aws:sns:us-west-2:424559443297:email_topic'
+# CELERY_ROUTES = {
+#     'library.tasks.*': {'queue': 'library_queue'},
+# }
 
