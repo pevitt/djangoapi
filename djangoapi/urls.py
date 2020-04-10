@@ -24,3 +24,5 @@ urlpatterns = [
     path('api/library/', include('library.urls'), name='library'),
     path('api/auth/', include('authentication.urls'), name='authentication'),
 ]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+
+admin.site.site_header = settings.ADMIN_NAME

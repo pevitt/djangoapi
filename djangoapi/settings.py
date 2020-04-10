@@ -14,7 +14,9 @@ import os
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-
+PROJECT_PATH = os.path.realpath(os.path.join(os.path.dirname(__file__), '..'))
+print("AQUI")
+print(PROJECT_PATH)
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/3.0/howto/deployment/checklist/
@@ -68,7 +70,7 @@ ROOT_URLCONF = 'djangoapi.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [PROJECT_PATH + '/templates/'],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -80,6 +82,10 @@ TEMPLATES = [
         },
     },
 ]
+
+TEMPLATE_DIRS = (
+    os.path.join(PROJECT_PATH, 'templates'),
+)
 
 WSGI_APPLICATION = 'djangoapi.wsgi.application'
 
@@ -161,4 +167,12 @@ BOUNCY_TOPIC_ARN = 'arn:aws:sns:us-west-2:424559443297:email_topic'
 # CELERY_ROUTES = {
 #     'library.tasks.*': {'queue': 'library_queue'},
 # }
+
+# Email Settings
+DEFAULT_FROM_EMAIL = 'Jose Rigoberto <jrigoberto17@gmail.com>'
+EMAIL_BACKEND = 'django_smtp_ssl.SSLEmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_PORT = 465
+EMAIL_HOST_USER = '----@gmail.com'
+EMAIL_HOST_PASSWORD = '----'
 
