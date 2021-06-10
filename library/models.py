@@ -17,6 +17,7 @@ class Editorial(models.Model):
     email = models.CharField(max_length=50)
     address = models.CharField(max_length=250)
     logo = models.ImageField(null=True, blank=True, upload_to="avatars")
+    active = models.BooleanField(default=True)
 
     def __str__(self):
         return self.name
@@ -37,6 +38,7 @@ class Book(models.Model):
     author = models.ForeignKey(Author, on_delete=models.CASCADE)
     editorial = models.ForeignKey(Editorial, on_delete=models.CASCADE)
     book_pdf = models.FileField(upload_to="documentos")
+    active = models.BooleanField(default=True)
 
     def __str__(self):
         return self.name
