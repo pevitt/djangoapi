@@ -1,4 +1,5 @@
 from django.db import models
+from django.utils import timezone
 
 
 # Create your models here.
@@ -10,6 +11,16 @@ class Author(models.Model):
 
     def __str__(self):
         return self.first_name
+
+    @property
+    def full_name(self):
+        # "Returns the person's full name."
+        return '%s %s' % (self.first_name, self.last_name)
+
+    def save(self, *args, **kwargs):
+        print("Antes de guardar")
+        super().save(*args, **kwargs)  # Call the "real" save() method.
+        print("Despues de guardar")
 
 
 class Editorial(models.Model):
@@ -42,3 +53,19 @@ class Book(models.Model):
 
     def __str__(self):
         return self.name
+
+    class Meta:
+        ordering = ["name"]
+        # db_table = 'student_info'
+
+
+class Favorite(models.Model):
+    author = models.ForeignKey(Author, on_delete=models.CASCADE)
+    editorial = models.ForeignKey(Editorial, on_delete=models.CASCADE)
+    created_at = models.DateTimeField(default=timezone.now)
+
+    class Meta:
+        verbose_name_plural = 'Favorites'
+
+    def __str__(self):
+        return self.author.first_name

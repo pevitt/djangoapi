@@ -18,9 +18,11 @@ from django.urls import path
 from django.conf.urls import include
 from django.conf.urls.static import static
 from django.conf import settings
+from events.admin import event_admin_site
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('event-admin/', event_admin_site.urls),
     path('api/library/', include('library.urls'), name='library'),
     path('api/auth/', include('authentication.urls'), name='authentication'),
 ]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

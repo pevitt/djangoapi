@@ -43,7 +43,9 @@ INSTALLED_APPS = [
     'django_celery_beat',
     'library',
     'users',
-    'authentication'
+    'authentication',
+    'entities',
+    'events'
 ]
 
 REST_FRAMEWORK = {
