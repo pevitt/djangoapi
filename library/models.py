@@ -22,6 +22,9 @@ class Author(models.Model):
         super().save(*args, **kwargs)  # Call the "real" save() method.
         print("Despues de guardar")
 
+    class Meta:
+        ordering = ["first_name"]
+
 
 class Editorial(models.Model):
     name = models.CharField(max_length=100)

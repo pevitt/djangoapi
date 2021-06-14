@@ -39,7 +39,7 @@ class BooksAdmin(ImportExportModelAdmin):
     raw_id_fields = ("author", "editorial",)
     search_fields = ('name',)
     list_filter = ['category_book', 'editorial']
-    readonly_fields = ["name", ]
+    # readonly_fields = ["name", ]
     list_per_page = 250
     list_editable = ("category_book", "active")
     actions = ["mark_active", "mark_inactive"]
