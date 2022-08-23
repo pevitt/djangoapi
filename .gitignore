@@ -19,3 +19,5 @@ logs/*
 client_secret.json
 cloudvision.json
 *.pdf
+*.envrc
+*.python-version
